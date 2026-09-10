@@ -5,7 +5,10 @@ export default function Form({ todos, setTodos }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    setTodos([...todos, todo]);
+    const trimmedTodo = todo.trim();
+    if (!trimmedTodo) return;
+
+    setTodos((currentTodos) => [...currentTodos, trimmedTodo]);
     setTodo("");
   }
   return (
