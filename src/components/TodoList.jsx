@@ -1,28 +1,32 @@
 import TodoItem from "./TodoItem";
 import styles from "./todolist.module.css";
 export default function TodoList({ todos, setTodos }) {
-  function handleDelete(indexToDelete) {
+  function handleDelete(itemToDelete) {
     setTodos((currentTodos) =>
-      currentTodos.filter((_, index) => index !== indexToDelete),
+      currentTodos.filter((todo) => todo !== itemToDelete),
     );
   }
 
-  function handleToggle(indexToToggle) {
+  function handleToggle(itemToToggle) {
     setTodos((currentTodos) =>
-      currentTodos.map((todo, index) =>
-        index === indexToToggle ? { ...todo, done: !todo.done } : todo,
+      currentTodos.map((todo) =>
+        todo === itemToToggle ? { ...todo, done: !todo.done } : todo,
       ),
     );
   }
 
+  const sortedTodos = todos
+    .slice()
+    .sort((a, b) => Number(a.done) - Number(b.done));
+
   return (
     <div className={styles.list}>
-      {todos.map((item, index) => (
+      {sortedTodos.map((item, index) => (
         <TodoItem
           key={`${item.name}-${index}`}
           item={item}
-          onDelete={() => handleDelete(index)}
-          onToggle={() => handleToggle(index)}
+          onDelete={() => handleDelete(item)}
+          onToggle={() => handleToggle(item)}
         />
       ))}
     </div>
