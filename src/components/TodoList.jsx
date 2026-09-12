@@ -11,7 +11,7 @@ export default function TodoList({ todos, setTodos }) {
     <div className={styles.list}>
       {todos.map((item, index) => (
         <TodoItem
-          key={`${item}-${index}`}
+          key={`${item.name}-${index}`}
           item={item}
           onDelete={() => handleDelete(index)}
         />
