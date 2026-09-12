@@ -7,6 +7,14 @@ export default function TodoList({ todos, setTodos }) {
     );
   }
 
+  function handleToggle(indexToToggle) {
+    setTodos((currentTodos) =>
+      currentTodos.map((todo, index) =>
+        index === indexToToggle ? { ...todo, done: !todo.done } : todo,
+      ),
+    );
+  }
+
   return (
     <div className={styles.list}>
       {todos.map((item, index) => (
@@ -14,6 +22,7 @@ export default function TodoList({ todos, setTodos }) {
           key={`${item.name}-${index}`}
           item={item}
           onDelete={() => handleDelete(index)}
+          onToggle={() => handleToggle(index)}
         />
       ))}
     </div>
